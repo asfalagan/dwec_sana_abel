@@ -1,22 +1,14 @@
-let numero = prompt('Introduce un número: ');
-
-//opciones: cancela -> null; string -> NaN
 
 
-while(isNaN(numero)||numero === null ||numero === undefined){
-    numero = prompt('Introduce un número: ');
-    numero = +numero;
-}
+let numero;
 
-alert(`Has introducido el número: ${numero}`);
+do {
 
+    numero = prompt("Introduce un número válido");
 
-/*
-al convertir a number... 
-"" -> 0
-null -> 0
-j -> NaN
-"7" -> 7
-0 -> 0
-trim("       ") -> ""
-*/
+} while (numero === null || numero.trim() == '' || isNaN(+numero));//si me introducen en pantalla un '5' equivale a z5z
+
+numero = +numero;
+
+console.log(`Has introducido el número: ${numero}`);
+

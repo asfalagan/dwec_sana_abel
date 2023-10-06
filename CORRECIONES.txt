@@ -1,1 +1,6 @@
 COMPRUEBA QUE FUNCIONA PARA EL 2 PRIMO 
+
+revisa los operadores en el ejercicio calculadora
+
+revisar el ejercicio 19; k y n estan bien colocadas o estan cambiadas? 
+

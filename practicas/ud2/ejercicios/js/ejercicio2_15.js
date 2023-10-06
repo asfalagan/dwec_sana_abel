@@ -7,17 +7,17 @@
 function calc (operador, operando1, operando2){
     switch(operador){
         case '+':
-            return operando1 + operando2;
+            return +operando1 + +operando2;
         case '-':
-            return operando1 - operando2;
+            return +operando1 - +operando2;
         case '*':
-            return operando1 * operando2;
+            return +operando1 * +operando2;
         case '/':
-            return operando1 / operando2;
+            return +operando1 / +operando2;
         case '%':
-            return operando1 % operando2;
+            return +operando1 % +operando2;
         case '+=':
-            return operando1 += operando2;
+            return +operando1 += +operando;
         case '-=':
             return operando1 -= operando2;
         case '*=':

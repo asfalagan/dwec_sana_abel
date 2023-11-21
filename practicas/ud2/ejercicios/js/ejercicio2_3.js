@@ -13,4 +13,4 @@ let importe = cantidadManzanas * precioManzanas
             + cantidadPlatanos * precioPlatanos;
 
 
-alert(`Has comprado un total de ${kilos} y te ha costado ${importe} euros.`);
+console.log(`Has comprado un total de ${kilos} y te ha costado ${importe} euros.`);

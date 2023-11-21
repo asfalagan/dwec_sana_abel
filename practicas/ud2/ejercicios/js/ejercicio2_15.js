@@ -17,17 +17,17 @@ function calc (operador, operando1, operando2){
         case '%':
             return +operando1 % +operando2;
         case '+=':
-            return +operando1 += +operando;
+            return operando1 += +operando2;
         case '-=':
-            return operando1 -= operando2;
+            return operando1 -= +operando2;
         case '*=':
-            return operando1 *= operando2;
+            return operando1 *= +operando2;
         case '/=':
-            return operando1 /= operando2;
+            return operando1 /= +operando2;
         default:
             return 'ERROR: OPERADOR NO VALIDO'
     }
 }
 
-let mensaje = calc('+', 2, 4);
+let mensaje = calc('+=', 2, 4);
 console.log(mensaje);

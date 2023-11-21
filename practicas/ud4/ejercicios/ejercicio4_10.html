@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4_10</title>
+    <style>
+        .btn{
+            width: 200px;
+            height: 100px;
+            background-color: steelblue;
+            color: white;
+            cursor: pointer;
+            display: inline;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .btn:hover{
+            transform: scale(1.1);
+        }
+        div{
+            height: 300px;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <div class="contenedor">
+        <span id="mins">00</span>
+        <span> : </span>
+        <span id="secs">00</span>
+        <span> . </span>
+        <span id="milis">0</span>
+    </div>
+    <div class="controles">
+        <span class='start btn' style="color: white; background-color: green; margin: 3em;">START</span>
+        <span class='stop btn' style="color: white; background-color: red; margin: 3em;">STOP</span>
+        <span class='reset btn' style="color: white; background-color: goldenrod; margin: 3em;">RESET</span>
+    </div>
+</body>
+<script src="./js/e_4_10.js"></script>
+
+</html>

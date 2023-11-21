@@ -6,4 +6,4 @@ let localidad = prompt('Introduce tu localidad');
 //mostrar un mensaje que tenga un texto de forma:
 //"Hola <nombre>, eres de <localidad>"
 
-alert(`Hola ${nombre}, eres de ${localidad}`);
+console.log(`Hola ${nombre}, eres de ${localidad}`);

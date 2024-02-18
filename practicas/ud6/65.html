@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+    .tablero{
+        width: 100%;
+        height: 100%;
+        background-color: beige;
+    }
+    #fichaJuego{
+        width: 100px;
+        height: 100px;
+        background-color: #000;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+    .juego{
+        width: 100vw;
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .hidden{
+        display: none;
+    }
+    #time-panel{
+        width: 200px;
+    }
+    </style>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="score-board">
+        <div id="score-panel">
+            <div id="score-label">Puntuación</div>
+            <div id="score" class="marcador">00</div>
+        </div>
+        <div id="time-panel">
+            <div id="time-label">Tiempo</div>
+            <div id="time">00:00</div>
+        </div>
+        <div id="diff-panel">
+            <div id="diff-label">Dificultad</div>
+            <div id="diff">
+                <div class="diff-level selected">1</div>
+                <div class="diff-level">2</div>
+                <div class="diff-level">3</div>
+                <div class="diff-level">4</div>
+                <div class="diff-level">5</div>
+            </div>
+        </div>
+        <div id="player-panel">
+            <div id="player-label">Jugador</div>
+            <input id="player-input" type=text id="player"></input>
+        </div>
+        <div id="btn-panel">
+            <div class="btn" id="btn-start">Start</div>
+            <div class="btn" id="btn-reset">Reset</div>
+        </div>
+        <div id="ranking-panel">
+            <div id="ranking-label">Ranking</div>
+            <div id="ranking">
+                <div id="ranking-first" class="ranking-item">
+                    <span class="ranking-name"></span>
+                    <span class="ranking-score"></span>
+                </div>
+                <div id="ranking-second" class="ranking-item">
+                    <span class="ranking-name"></span>
+                    <span class="ranking-score"></span>
+                </div>
+                <div id="ranking-third" class="ranking-item">
+                    <span class="ranking-name"></span>
+                    <span class="ranking-score"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="juego ">
+        <div class="tablero">
+            <div id="fichaJuego" class="hidden"></div>
+        </div>
+    </div>
+    
+
+    <script>
+    let time = document.getElementById('time');
+    let btnStart = document.getElementById('btn-start');
+    let btnReset = document.getElementById('btn-reset');
+    let ficha = document.querySelector('#fichaJuego');
+    let ranking = [];
+    let jugador;
+    let score; 
+    let playerLabel = document.getElementById('player-label');
+    let marcador = document.querySelector('.marcador');
+    let tiempo = document.getElementById('time');
+    //obtengo los limites del tablero de juego
+    let tablero = document.querySelector('.tablero');
+    let tableroWidth = window.innerWidth;
+    let tableroHeight = window.innerHeight * 0.8;
+    let nombreJugador = document.getElementById('player-input');
+    let diff = document.getElementById('diff');
+    let ctime = 0;
+    btnStart.addEventListener('click', initialize);
+    btnReset.addEventListener('click', reset);
+    let intervaloJuego;
+
+    function reset(){
+        clearInterval(intervaloJuego);
+        ficha.classList.add('hidden');
+        ctime = 0;
+        marcador.textContent = '00';
+        tiempo.textContent = '00:00';
+        nombreJugador.value = '';
+        
+    }
+
+    function initialize(){
+        console.log('estoy aqui');
+        console.log(ficha);
+        ficha.classList.toggle('hidden');
+        console.log(ficha);
+     
+        ficha.addEventListener('click', (e) => {
+            //incremento un punto al marcador
+            let puntos = parseInt(marcador.textContent);
+            puntos++;
+            marcador.textContent = puntos < 10 ? '0' + puntos : puntos;
+            //muevo la ficha
+            moverFicha();
+            
+
+        });
+        window.addEventListener('resize', (e) => {
+        // e.preventDefault(); <- Evitaria que las dimensiones del tablero cambiasen
+        resizeBoard();
+        moverFicha();
+        })
+        
+
+        intervaloJuego = setInterval(() => {
+            //controlo que hayan pasado menos de 20 segundos
+            if(ctime < 20000){
+                ctime += 100;
+                displayTime(ctime);
+            }else{
+                clearInterval(intervaloJuego);
+                registrarRecord();
+                ficha.classList.toggle('hidden');
+            }
+        }, 100);
+
+        
+                
+    }
+    
+    
+    function displayTime(milliseconds) {
+            const seconds = Math.floor(milliseconds / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+
+            time.textContent = `${pad(minutes)}:${pad(remainingSeconds)}`;
+        }
+
+        function pad(number, length = 2) {
+            return String(number).padStart(length, '0');
+        }
+    /*
+        La ficha estará dentro del tablero cuando 
+        left + width < tableroWidht && top + height < tableroHeight
+    */
+
+    function moverFicha(){
+        //muevo la ficha a una posicion aleatoria
+        //calculo un numero aleatorio que me va a dar el tamaño del ancho; siendo el maximo 200 y el minimo 50
+        let newWidth = Math.round(Math.random() * 200);
+        newWidth = newWidth > 50 ? newWidth : 50;
+
+        let newHeight = Math.round(Math.random() * 200);
+        newHeight = newHeight > 50 ? newHeight : 50;
+        //calculo el desplazamiento en top; siendo el maximo desplazamiento tableroHeight - newHeight; no ponemos minimo
+        let newTop = Math.round(Math.random() * (tableroHeight - newHeight));
+        //igual para left 
+        let newLeft = Math.round(Math.random() * (tableroWidth - newWidth));
+        //modifico los valores style de la ficha 
+        ficha.style.top = newTop + 'px';
+        ficha.style.left = newLeft + 'px';
+        ficha.style.width = newWidth + 'px';
+        ficha.style.height = newHeight + 'px';
+    }
+    
+    function resizeBoard(){
+        tableroWidth = window.innerWidth;
+        tableroHeight = window.innerHeight * 0.8;
+    }
+
+    function registrarRecord(){
+        let nj = nombreJugador.value;
+        if(nj === ''){
+            nj = 'Anonimo';
+        }
+        let record = {
+            jugador: nj,
+            score: marcador.textContent
+        }
+        ranking.push(record);
+        ranking.sort((a, b) => b.score - a.score);
+        ranking = ranking.slice(0, 3);
+        console.log(ranking);
+        pintarRanking();
+    }
+    function pintarRanking(){
+        let rankingFirst = document.getElementById('ranking-first');
+        let rankingSecond = document.getElementById('ranking-second');
+        let rankingThird = document.getElementById('ranking-third');
+        if(ranking[0]){
+            rankingFirst.children[0].textContent = ranking[0].jugador;
+            rankingFirst.children[1].textContent = ranking[0].score;
+        }
+        if(ranking[1]){
+            rankingSecond.children[0].textContent = ranking[1].jugador;
+            rankingSecond.children[1].textContent = ranking[1].score;
+        }
+        if(ranking[2]){
+            rankingThird.children[0].textContent = ranking[2].jugador;
+            rankingThird.children[1].textContent = ranking[2].score;
+        }
+        
+    }
+    </script>
+</body>
+</html>

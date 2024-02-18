@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="imgs/hangman_09.png">
+    <link rel="icon" type="image/png" href="imgs/hangman_09.png">
+    
+</head>
+<body>
+    <div id="hanged">
+        <!-- <img src="url.png" /> -->
+    </div>  
+    <div id="spaces">
+        <!-- <span class="space">X</span> -->
+    </div>
+    <div id="keyboard">
+        <!-- <span class="key">a</span> -->
+    </div>
+    <div id="msg">Escoge una letra</div>
+    <script src="./words.js"></script>
+    
+</body>
+<script>
+
+    let msg = document.getElementById('msg');
+    let word = words[Math.floor(Math.random() * words.length)];
+    let keyboard = document.getElementById('keyboard');
+    let spaces = document.getElementById('spaces');
+    'abcderfghijklmnñopqrstuvwxyz'.split('').forEach(letter => {
+        let span = document.createElement('span');
+        span.className = 'key';
+        span.innerHTML = letter;
+        span.onclick = () => {
+            span.style.backgroundColor = 'gray';
+            checkLetter(letter);
+        }
+        keyboard.appendChild(span);
+    });
+    console.log(word);
+    word.split('').forEach(letter => {
+        let span = document.createElement('span');
+        span.className = 'space';
+        span.dataset.letter = letter;
+        spaces.appendChild(span);
+    });
+    window.addEventListener('keydown', (e) => {
+        'abcderfghijklmnñopqrstuvwxyz'.split('').forEach(letter => {
+            if(e.key === letter) {
+                checkLetter(letter);
+            }
+        });
+    });
+    function checkLetter(letter) {
+        let found = false;
+        document.querySelectorAll('.space').forEach(space => {
+            if(space.dataset.letter === letter) {
+                space.innerHTML = letter;
+                found = true;
+            }
+        });
+        if(found) {
+            checkWin();
+        } else {
+            checkHanged();
+        }
+    }
+    function checkWin() {
+        if([].every.call(document.querySelectorAll('.space'), space => space.innerHTML)) {
+            msg.innerHTML = 'Ganaste, actualiza la página para jugar de nuevo';
+        }
+    }
+    let hanged = 0;
+    function checkHanged(){
+        hanged++;
+        document.getElementById('hanged').innerHTML = `<img src="hangman/hangman_0${hanged}.png" />`;
+        if(hanged === 7) {
+            msg.innerHTML = `Perdiste, la palabra era: ${word}, actualiza la página para jugar de nuevo`;
+        }
+    }
+</script>
+</html>

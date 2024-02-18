@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 6_4</title>
+</head>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    .juego{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .marcador{
+        width: 100%;
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: lightskyblue;
+        font-size: 4em;
+        font-weight: 600;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .tablero{
+        width: 100%;
+        height: 80%;
+    }
+    .ficha{
+        width: 100px;
+        height: 100px;
+        background-color: #000;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+</style>
+<body>
+    <div class="juego">
+        <div class="marcador">00</div>
+        <div class="tablero">
+            <div class="ficha"></div>
+        </div>
+    </div>
+</body>
+<script>
+    let marcador = document.querySelector('.marcador');
+    //obtengo los limites del tablero de juego
+    let tablero = document.querySelector('.tablero');
+    let tableroWidth = window.innerWidth;
+    let tableroHeight = window.innerHeight * 0.8;
+    console.log(tableroWidth);
+    console.log(tableroHeight);
+    /*
+        La ficha estará dentro del tablero cuando 
+        left + width < tableroWidht && top + height < tableroHeight
+    */
+
+    //capuro el evento de click en la ficha
+    let ficha = document.querySelector('.ficha');
+    ficha.addEventListener('click', (e) => {
+        //incremento un punto al marcador
+        let puntos = parseInt(marcador.textContent);
+        puntos++;
+        marcador.textContent = puntos < 10 ? '0' + puntos : puntos;
+        //muevo la ficha
+        moverFicha();
+        
+
+    });
+    function moverFicha(){
+        //muevo la ficha a una posicion aleatoria
+        //calculo un numero aleatorio que me va a dar el tamaño del ancho; siendo el maximo 200 y el minimo 50
+        let newWidth = Math.round(Math.random() * 200);
+        newWidth = newWidth > 50 ? newWidth : 50;
+
+        let newHeight = Math.round(Math.random() * 200);
+        newHeight = newHeight > 50 ? newHeight : 50;
+        //calculo el desplazamiento en top; siendo el maximo desplazamiento tableroHeight - newHeight; no ponemos minimo
+        let newTop = Math.round(Math.random() * (tableroHeight - newHeight));
+        //igual para left 
+        let newLeft = Math.round(Math.random() * (tableroWidth - newWidth));
+        //modifico los valores style de la ficha 
+        ficha.style.top = newTop + 'px';
+        ficha.style.left = newLeft + 'px';
+        ficha.style.width = newWidth + 'px';
+        ficha.style.height = newHeight + 'px';
+    }
+    window.addEventListener('resize', (e) => {
+        // e.preventDefault(); <- Evitaria que las dimensiones del tablero cambiasen
+        resizeBoard();
+        moverFicha();
+    })
+    function resizeBoard(){
+        tableroWidth = window.innerWidth;
+        tableroHeight = window.innerHeight * 0.8;
+    }
+</script>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre>
+        Matricula:
+        let matricula = "9119LJF";
+        let regex = /^[0-9]{4}[A-Za-z]{3}$/;
+
+        NIF:
+        let nif = "10200300A";
+        let regex = /^[0-9]{8}[A-Za-z]$/;
+
+        Contraseña con al menos 8 caracteres, una mayuscula, una minuscula y un numero:
+        let password = "Villabalter1";
+        let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+        Expresión regular para URL:
+        let url1 = "https://google.com";
+        let url2 = "http://google.es";
+        let url3 = "http://www.google.com";
+        let regex = /^(https?|http):\/\/[A-Za-z0-9-]+(\.[A-Za-z]{2,})+(\/[A-Za-z0-9-._~:/?#[\]@!$&'()*+,;=%]*)?$/;
+
+        ipv4:
+        let ip1 = "10.0.0.1";
+        let ip2 = "192.168.255.1";
+        let regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+
+        Color:
+        let color1 = "#45a4ef";
+        let color2 = "#AB3FE5";
+        let regex = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+
+        Email:
+        let email1 = "usuario@mail.com";
+        let email2 = "alumno@educa.jcyl.es";
+        let email3 = "alumno-daw@mail.es";
+        let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        Teléfono:
+        let telefono1 = "(+34) 987 111 222";
+        let telefono2 = "(+34)912345678";
+        let regex = /^\(\+\d{2}\)\s?\d{3}\s?\d{6,9}$/;
+
+        Fecha:
+        let fecha1 = '08/12/2022';
+        let fecha2 = '23/01/2021';
+        let regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+    </pre>
+</body>
+<script>
+    //expresion regular para validar una ipv4
+    p
+</script>
+</html>

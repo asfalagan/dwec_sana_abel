@@ -1,0 +1,14 @@
+div{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+.fila{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+.celda{
+    width: 25%;
+}

@@ -1,0 +1,37 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+div{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+.fila{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+.celda{
+    width: 25%;
+}
+
+.contenedorControles{
+    position: fixed;
+    bottom: 0;
+    background-color:deepskyblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+}
+.controles{
+    background-color:yellowgreen;
+    color: white;
+    cursor: pointer;
+    padding: 1em;
+
+}
